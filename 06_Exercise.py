@@ -10,7 +10,6 @@ class DataSheet():
     def __init__(self, url_list):
         self.url_list = url_list
 
-
     def download(self, url,):
         r = requests.get(url, allow_redirects=True)
         if r.status_code == 200:
@@ -35,10 +34,12 @@ class DataSheet():
 
     def __iter__(self):
         return self
-    def __next__(self):
-        if random.choice(["go", "go", "go", "stop"]) == "stop":
+    def __next__(self, url_list, filename):
+        if range(url_list) == url_list + 1:
             raise StopIteration  # signals "the end"
-        return 1  
+        with open(filename) as file_object:
+            contents = file_object.read()
+        return contents  
     
 
 img_urls = [
