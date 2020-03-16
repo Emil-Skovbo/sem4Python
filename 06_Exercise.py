@@ -41,6 +41,12 @@ class DataSheet():
             contents = file_object.read()
         return contents  
     
+    def urllist_generator(self, url_list):
+        num = 0
+        while num < len(url_list):
+            yield num
+            num += 1
+
 
 img_urls = [
     'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759',
