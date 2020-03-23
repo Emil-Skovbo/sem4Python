@@ -3,42 +3,38 @@ import pymysql
 from decimal import Decimal
 from datetime import datetime, date, timedelta
 import datetime
-import selenium_gutenberg
+#import selenium_gutenberg
 # WebScrap de 25 populæreste Sherlock Holmes bøger http://www.gutenberg.org/wiki/Main_Page
-res = selenium_gutenberg.get_info('sherlock holmes conan')
-res
+#res = selenium_gutenberg.get_info('sherlock holmes conan')
+# res
 
-print(
-    'There were {} Sherlock Holmes books on the first page'.format(len(res)))
+# print(
+#    'There were {} Sherlock Holmes books on the first page'.format(len(res)))
 
-selenium_gutenberg.save_to_file(''.join(res))
+# selenium_gutenberg.save_to_file(''.join(res))
 
-
-cnx = pymysql.connect(user='dev', password='ax2',
-                      host='127.0.0.1', port=3307, db='Week1Day5')
-
-cursor = cnx.cursor()
-
-query = ("SELECT firstname, ID FROM BANKCUSTOMER")
-
-
-cursor.execute(query)
-
-for (id, firstname) in cursor:
-    print("{} {} hired for this company".format(
-        id,  firstname))
-
-cursor.close()
-cnx.close()
+# Brug test.sql scriptet (pythondemo):
+# Hent følgende data:
+# Navn på de personer som har en salary der er højere end 50.000
+# Navn på dem som har efternavnet Juhlborg
 
 
 # Connect with the MySQL Server
 cnx = pymysql.connect(user='dev', password='ax2',
                       host='127.0.0.1', port=3307, db='pythondemo')
-cursor = cnx.cursor()
 
-curA = cnx.cursor()
-curB = cnx.cursor()
+query = ("SELECT firstname, ID , SALARY FROM pythondemo WHERE SALARY > 50000")
+
+cursor = cnx.cursor()
+cursor.execute(query)
+
+for (id, firstname, salary) in cursor:
+    print("{} ID {} earns {} each month".format(
+        id,  firstname, salary))
+
+cursor.close()
+cnx.close()
+
 
 # Query to get employees who joined in a period defined by two dates
 query = ("SELECT id, salary FROM pythondemo WHERE enddate IS NULL")
@@ -47,6 +43,12 @@ query = ("SELECT id, salary FROM pythondemo WHERE enddate IS NULL")
 update_old_salary = (
     "UPDATE pythondemo SET salary = %s "
     "WHERE id = %s")
+cnx = pymysql.connect(user='dev', password='ax2',
+                      host='127.0.0.1', port=3307, db='pythondemo')
+
+query = ("SELECT firstname, ID FROM pythondemo WHERE SALARY > 50000")
+curA = cnx.cursor()
+curB = cnx.cursor()
 
 # Select the employees getting a raise (all that are still employed)
 curA.execute(query)
