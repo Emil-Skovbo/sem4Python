@@ -1,11 +1,10 @@
 #test
 
 import pandas as pd
-
-
 #opgave 5.a
 url5a = "https://api.statbank.dk/v1/data/FOLK1A/CSV?valuePresentation=CodeAndValue&delimiter=Semicolon&Tid=2020K1%2C2008K1&OMR%C3%85DE=000&CIVILSTAND=G%2CF"
 data5a = pd.read_csv(url5a,sep=';')
+print(data5a)
 pctIn2008 = (data5a["INDHOLD"][1]/data5a["INDHOLD"][0]*100)
 pctIn2020 = (data5a["INDHOLD"][3]/data5a["INDHOLD"][2]*100)
 increase = pctIn2020 - pctIn2008

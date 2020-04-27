@@ -3,15 +3,15 @@ import pymysql
 from decimal import Decimal
 from datetime import datetime, date, timedelta
 import datetime
-#import selenium_gutenberg
+import selenium_gutenberg
 # WebScrap de 25 populæreste Sherlock Holmes bøger http://www.gutenberg.org/wiki/Main_Page
-#res = selenium_gutenberg.get_info('sherlock holmes conan')
-# res
+res = selenium_gutenberg.get_info('sherlock holmes conan')
+res
 
-# print(
-#    'There were {} Sherlock Holmes books on the first page'.format(len(res)))
+print(
+    'There were {} Sherlock Holmes books on the first page'.format(len(res)))
 
-# selenium_gutenberg.save_to_file(''.join(res))
+selenium_gutenberg.save_to_file(''.join(res))
 
 # Brug test.sql scriptet (pythondemo):
 # Hent følgende data:

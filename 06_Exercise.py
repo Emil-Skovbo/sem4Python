@@ -17,6 +17,7 @@ class DataSheet():
             open(img_name, 'wb').write(r.content)
             print("200 works")
         if r.status_code == 404:
+            print("404 error")
             raise NotFoundException()
             
     def download_image(self, img_url):
@@ -31,6 +32,12 @@ class DataSheet():
         ds = DataSheet(url_list)
         with ThreadPoolExecutor() as ex:
             ex.map(ds.download,url_list)
+
+    def multi_downloadimage(self,url_list):
+        ds = DataSheet(url_list)
+        with ThreadPoolExecutor() as ex:
+            ex.map(ds.download_image,url_list)
+
 
     def __iter__(self):
         return self
@@ -68,5 +75,7 @@ img_urls = [
 dataurllist = ["https://api.statbank.dk/v1/data/FOLK1A/CSV?valuePresentation=CodeAndValue&delimiter=Semicolon&Tid=2020K1%2C2008K1&OMR%C3%85DE=000&CIVILSTAND=G%2CF", "http://httpbin.org/status/404"]
 ds = DataSheet(dataurllist)
 #print(dataurllist[0])
-#ds.download(img_urls[0],"testttt")
-ds.multi_download(img_urls)
+#ds.download(dataurllist[0])
+#ds.download_image(img_urls[0])
+ds.multi_download(dataurllist)
+#ds.multi_downloadimage(img_urls)
